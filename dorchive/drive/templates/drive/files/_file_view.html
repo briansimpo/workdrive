@@ -1,0 +1,18 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="text-center mb-4">
+            <h4>{{file}}</h4>
+        </div>
+        {% if file.is_pdf %}
+            {% include "drive/viewers/_pdf_viewer.html" with file=file %}
+        {% elif file.is_video %}
+            {% include "drive/viewers/_video_player.html"  with file=file %}
+        {% elif file.is_audio %}
+            {% include "drive/viewers/_video_player.html"  with file=file %}
+        {% else %}
+            {% include "drive/viewers/_download_viewer.html"  with file=file %}
+        {% endif %}
+    </div>
+</div>
+

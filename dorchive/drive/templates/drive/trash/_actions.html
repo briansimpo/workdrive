@@ -1,0 +1,31 @@
+
+<div class="col-12 col-md-auto d-flex align-items-center justify-content-end page-actions">
+
+    <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Action
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMemberMenu">
+            {% if files %}
+            <li>
+                <a href="{% url 'restore_trash' %}" class="dropdown-item">
+                    <i class="fas fa-redo"></i> Restore
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'empty_trash' %}" class="dropdown-item">
+                    <i class="fas fa-trash"></i> Empty
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+</div>

@@ -1,0 +1,23 @@
+{% extends 'drive/base.html' %}
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/files/_breadcrumbs.html" with file=file %}
+{% endblock %}
+
+{% block page_actions %}
+    {% include "drive/files/_actions.html" with file=file %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    {% if file.is_folder %}
+        {% include "drive/files/_file_list_view.html" with files=files %}
+    {% elif file.is_file %}
+        {% include "drive/files/_file_view.html" with file=file %}
+    {% endif %}
+</section>
+
+{% include "drive/modals/all.html" %}
+
+{% endblock %}

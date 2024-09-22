@@ -1,0 +1,63 @@
+{% load drive_tags %}
+{% load crispy_forms_tags %}
+
+{% if update_file_form %}
+<div class="modal fade" id="updateFileModal" role="dialog" >
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">File Information</h5>
+                <button type="button" class="close rounded-pill"
+                    data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row">
+                    {% if user|can_write:file%}
+                    <div class="col-lg-6">
+                        <form method="POST" action="{{ file.get_update_url }}" id="updateFileForm" class="form">
+                            {% csrf_token %}
+                            {{ update_file_form|crispy }}
+                        </form>
+                    </div>
+                    {% endif %}
+                    <div class="col-lg-6">
+                        <dl class="d-block">
+                            <dt> Size</dt>
+                            <dd class="text-muted"> {{file.bytes}}</dd>
+
+                            <dt> Permission</dt>
+                            <dd class="text-muted"> {{file.access}}</dd>
+
+                            <dt> Owner</dt>
+                            <dd class="text-muted"> {{file.author }}</dd>
+
+                            <dt> Group</dt>
+                            <dd class="text-muted"> {{file.group }}</dd>
+
+                            <dt> Published</dt>
+                            <dd class="text-muted"> {{file.published }}</dd>
+
+                            <dt> Created on</dt>
+                            <dd class="text-muted"> {{file.created|date:"j N Y" }} by {{file.author }}</dd>
+
+                            <dt> Modified on</dt>
+                            <dd class="text-muted"> {{file.modified|date:"j N Y" }} by {{file.modified_by}}</dd>
+                        </dl>
+                    </div>
+                </div>         
+                
+            </div>
+            <div class="modal-footer">
+                {% if user|can_write:file%}
+                <button type="submit" class="btn btn-primary" onclick="document.getElementById('updateFileForm').submit()">Update</button>
+                {% endif %}
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
+           
+        </div>
+    </div>
+</div>
+{% endif %}

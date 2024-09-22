@@ -1,0 +1,13 @@
+{% extends 'drive/base.html' %}
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/shared/_breadcrumbs.html"%}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    {% include "drive/shared/_file_list_view.html" with files=files %}
+</section>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block sidebar %} 
+
+<li class="nav-item" data-bs-placement="top" title="Home">
+    <a href="{% url 'home' %}" class='nav-link'>
+        <i class="nav-icon fa fa-home"></i> 
+        <span>Home</span>
+    </a>
+</li>
+
+<li class="nav-item" data-bs-placement="top" title="My Drive">
+    <a href="{% url 'mydrive' %}" class='nav-link'>
+        <i class="nav-icon fa fa-hdd"></i> 
+        <span>My Drive</span>
+    </a>
+</li>
+
+{% if user.get_groups|length %}
+<li class="nav-item has-treeview" data-bs-placement="top" title="Groups">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-users"></i>
+        <p>Groups <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        {% for drive in user.get_groups %}
+            <li class="nav-item" data-bs-placement="top" title="{{drive}}">
+                <a href="{{drive.get_absolute_url  }}" class='nav-link'>
+                    <i class="nav-icon far fa-circle"></i>
+                    <span>{{drive|truncatewords:5}}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</li>
+{% endif %}
+
+<li class="nav-item" data-bs-placement="top" title="Shared">
+    <a href="{% url 'shared' %}" class='nav-link'>
+        <i class="nav-icon fa fa-share"></i> 
+        <span>Shared</span>
+    </a>
+</li>
+
+<li class="nav-item" data-bs-placement="top" title="Recent">
+    <a href="{% url 'recent' %}" class='nav-link'>
+        <i class="nav-icon fa fa-history"></i> 
+        <span>Recent</span>
+    </a>
+</li>
+
+<li class="nav-item" data-bs-placement="top" title="Trash">
+    <a href="{% url 'trash' %}" class='nav-link'>
+        <i class="nav-icon fa fa-trash"></i> 
+        <span>Trash</span>
+    </a>
+</li>
+
+
+{% endblock %}

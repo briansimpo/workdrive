@@ -1,0 +1,34 @@
+{% load crispy_forms_tags %}
+
+{% if create_folder_form %}
+<div class="modal fade" id="createFolderModal" role="dialog" >
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Folder</h5>
+                <button type="button" class="close rounded-pill"
+                    data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="POST" action="{% url 'folder_create' %}" id="createFolderForm" class="form">
+                            {% csrf_token %}
+                            {{ create_folder_form|crispy }}
+                        </form>
+                    </div>
+                </div>         
+                
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="document.getElementById('createFolderForm').submit()">Create</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
+           
+        </div>
+    </div>
+</div>
+{% endif %}

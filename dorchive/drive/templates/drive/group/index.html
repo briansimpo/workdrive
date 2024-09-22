@@ -1,0 +1,21 @@
+{% extends 'drive/base.html' %}
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/group/_breadcrumbs.html" with group=group %}
+{% endblock %}
+
+{% block page_actions %}
+    {% include "drive/group/_actions.html" with group=group %}
+{% endblock %}
+
+{% block content %} 
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                {% include "drive/files/_file_list_view.html" with files=files %}
+            </div>
+        </div>
+    </section>
+    {% include "drive/modals/all.html" %}
+{% endblock %}

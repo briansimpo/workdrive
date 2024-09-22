@@ -1,0 +1,11 @@
+{% load static %}
+<iframe 
+    src="{% static 'viewerjs/index.html' %}#{{ file.get_download_url }}" 
+    style="text-align:center;" 
+    width="1024" 
+    height="768"
+    allowtransparency="true" 
+    frameborder="0" 
+    allowfullscreen="true" 
+    webkitallowfullscreen="true">
+</iframe>

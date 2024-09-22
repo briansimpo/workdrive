@@ -1,0 +1,72 @@
+{% extends "drive/base.html" %}
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/group/_breadcrumbs.html" with group=group %}
+{% endblock %}
+
+{% block page_actions %}
+    {% include "drive/group/_add_action.html" with group=group %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="row">
+       
+        <div class="col-lg-12">
+            <div class="">
+                <div class="card-header ">
+                    <h4>Members</h4>
+                </div>
+                <div class="card-body ">
+                    
+                    <table class="table">
+                        <thead class="table-borderless">
+                            <tr>
+                                <th>Member</th>
+                                <th>Email</th>
+                                <th>Joined on</th>
+                                <th>Is Admin</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in group_members %}
+                            <tr>
+                                <td>{{member.user}}</td>
+                                <td>{{member.user.email}}</td>
+                                <td>{{member.created|date:"j N Y"}}</td>
+                                <td>
+                                    <form method="POST" action="{{member.group.get_admin_url }}" id="addAdminForm">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="member" value="{{member.user.pk}}" />
+                                        <input 
+                                            type="checkbox" 
+                                            name="is_admin"
+                                            class="form-check-inline" 
+                                            {% if member.is_admin %} checked="True" {% endif %}
+                                            onclick="document.getElementById('addAdminForm').submit()"
+                                        />
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="POST" action="{{member.group.get_remove_member_url }}" id="deleteForm">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="member" value="{{member.user.pk}}" />
+                                        <button class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}    
+                        </tbody>
+                    </table>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include "drive/modals/_add_group_members.html" %}
+{% endblock %}

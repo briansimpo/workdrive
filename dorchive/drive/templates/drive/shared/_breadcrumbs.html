@@ -1,0 +1,24 @@
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="{% url 'shared' %}">
+            Shared
+        </a>
+    </li>
+    {% if file %}
+        {% if file.has_ancestors %}
+            {% for breadcrumb in file.get_ancestors %}
+                <li class="breadcrumb-item">
+                    <a href="{{ breadcrumb.get_shared_file_url }}">
+                        <span class="d-inline ">{{ breadcrumb.name }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+        <li class="breadcrumb-item active">
+            <a href="{{ file.get_shared_file_url }}">
+                <span class="d-inline ">{{ file.name }}</span>
+            </a>
+        </li>
+    {% endif %}
+</ol>

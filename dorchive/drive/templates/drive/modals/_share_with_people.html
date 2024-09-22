@@ -1,0 +1,76 @@
+{% load crispy_forms_tags %}
+{% load drive_tags %}
+
+
+{% if share_people_form %}
+<div class="modal fade" id="sharePeopleModal" role="dialog" >
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share with people</h5>
+                <button type="button" class="close rounded-pill"
+                    data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="POST" action="{{file.get_share_people_url }}" id="sharePeopleForm">
+                            {% csrf_token %}
+                            {{ share_people_form|crispy }}
+                        </form>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="card-header ">
+                            <h5>People with access</h5>
+                        </div>
+                        <div class="card-body ">
+                            
+                    <table class="table">
+                        <thead class="table-borderless">
+                            <tr>
+                                <th>Person</th>
+                                <th>Email</th>
+                                <th>Access</th>
+                                <th>Shared on</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for shared in shared_people %}
+                            <tr>
+                                <td>{{shared.user}}</td>
+                                <td>{{shared.user.email}}</td>
+                                <td>{{shared.access}}</td>
+                                <td>{{shared.created|date:"j N Y"}}</td>
+                                <td>
+                                    <form method="POST" action="{{shared.file.get_remove_people_url }}" id="UnsharePeopleForm">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="people" value="{{shared.user.pk}}" />
+                                        <button class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}    
+                        </tbody>
+                    </table>
+                        </div>
+                    </div>
+           
+                </div>
+            
+            </div>
+         
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="document.getElementById('sharePeopleForm').submit()">Share</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

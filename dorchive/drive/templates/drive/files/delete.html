@@ -1,0 +1,36 @@
+{% extends "drive/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/files/_breadcrumbs.html" with file=file %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="card ">
+        <div class="card-header ">
+            <h4>Delete '{{ file.name }}'</h4>
+        </div>
+        <div class="card-body ">
+            
+            {% trans "Are you sure you want to delete this file and all of it's contents?" %}
+            {% url file.delete_url as post_url %}
+        </div>
+        <div class="card-footer ">
+            <form action="{{ post_url }}" method="POST">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button class="btn btn-danger">{% trans "Delete" %}</button>
+                    {% if file.has_parent %}
+                        <a href="{{ file.parent.get_absolute_url }}" class="btn btn-secondary ">{% trans "Cancel" %}</a>
+                    {% else %}
+                        <a href="{{ file.get_absolute_url }}" class="btn btn-secondary ">{% trans "Cancel" %}</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

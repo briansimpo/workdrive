@@ -1,0 +1,5 @@
+{% load drive_tags %}
+
+{% if user|can_delete:file %}
+<a class="" href="{{ file.get_delete_url }}">Delete</a>
+{% endif %}

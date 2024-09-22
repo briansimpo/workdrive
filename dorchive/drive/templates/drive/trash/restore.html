@@ -1,0 +1,30 @@
+{% extends "drive/base.html" %}
+
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/trash/_breadcrumbs.html" %}
+{% endblock %}
+
+{% block content %}
+<section class="section ">
+    <div class="card ">
+        <div class="card-header ">
+            <h4>Restore Trash</h4>
+        </div>
+        <div class="card-body ">
+            {% trans "Items in the Trash will overwrite existing duplicate files" %}
+        </div>
+        <div class="card-footer ">
+            <form action="{% url 'restore_trash' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-danger">{% trans "Restore Trash" %}</button>
+                    <a href="{% url 'trash' %}" class="btn btn-secondary ">{% trans "Cancel" %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+
+<video class="op-player__media" id="player" controls playsinline>
+    <source src="{{file.file.url}}" type="video/mp4" />
+    Your browser does not support the video format.
+</video>
+
+<script>
+    const player = new OpenPlayerJS('player');
+    player.init();
+</script>

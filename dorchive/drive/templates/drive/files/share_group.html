@@ -1,0 +1,75 @@
+{% extends "drive/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/files/_breadcrumbs.html" with file=file %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="">
+                <div class="card-header ">
+                    <h4>Share with groups</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="col-lg-6">
+                        <form method="POST" action="{{file.get_share_group_url }}" id="shareForm">
+                            {% csrf_token %}
+                            {{ share_group_form|crispy }}
+                            <div class="form-actions">
+                                <button class="btn btn-primary ">Share</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="">
+                <div class="card-header ">
+                    <h4>Groups with access</h4>
+                </div>
+                <div class="card-body ">
+                    
+                    <table class="table">
+                        <thead class="table-borderless">
+                            <tr>
+                                <th>Group</th>
+                                <th>Access</th>
+                                <th>Shared on</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for shared in shared_groups %}
+                            <tr>
+                                <td>{{shared.group}}</td>
+                                <td>{{shared.access}}</td>
+                                <td>{{shared.created|date:"j N Y"}}</td>
+                                <td>
+                                    <form method="POST" action="{{shared.file.get_remove_group_url }}" id="UnshareForm">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="group" value="{{shared.group.pk}}" />
+                                        <button class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                   
+                                </td>
+                            </tr>
+                            {% endfor %}    
+                        </tbody>
+                    </table>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

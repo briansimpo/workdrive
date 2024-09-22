@@ -1,0 +1,21 @@
+
+<div class="dropdown dropstart">
+    <button class="btn btn-sm burger-btn d-block"  pk="dropdownMemberMenu" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-bars fs-3"></i>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMemberMenu">
+       
+        <li>
+            <a class="dropdown-item" href="{{ file.get_restore_file_url }}" >
+                <i class="fas fa-redo"></i> Restore
+            </a>
+        </li>
+       
+        <li>
+            <a class="dropdown-item" href="{{ file.get_remove_file_url }}">
+                <i class="fas fa-trash"></i> Remove
+            </a>
+        </li>
+       
+    </ul>
+</div>

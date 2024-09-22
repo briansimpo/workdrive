@@ -1,0 +1,193 @@
+[
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Docs",
+            "icon": "icon/docs.png",
+            "extension": "docx"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Sheets",
+            "icon": "icon/sheets.png",
+            "extension": "xlsx"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Slides",
+            "icon": "icon/slides.png",
+            "extension": "pptx"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "PDF",
+            "icon": "icon/pdf.png",
+            "extension": "pdf"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Text",
+            "icon": "icon/txt.png",
+            "extension": "txt"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Picture",
+            "icon": "icon/picture.png",
+            "extension": "png"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Picture",
+            "icon": "icon/picture.png",
+            "extension": "jpg"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Picture",
+            "icon": "icon/picture.png",
+            "extension": "jpeg"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Picture",
+            "icon": "icon/picture.png",
+            "extension": "gif"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Audio",
+            "icon": "icon/audio.png",
+            "extension": "mp3"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Audio",
+            "icon": "icon/audio.png",
+            "extension": "wav"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Video",
+            "icon": "icon/video.png",
+            "extension": "mp4"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Video",
+            "icon": "icon/video.png",
+            "extension": "mpeg"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Video",
+            "icon": "icon/video.png",
+            "extension": "avi"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Video",
+            "icon": "icon/video.png",
+            "extension": "mkv"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Video",
+            "icon": "icon/video.png",
+            "extension": "wmv"
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "ZIP",
+            "icon": "icon/zip.png",
+            "extension": "zip"
+        }
+    },
+     
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "Folder",
+            "icon": "icon/folder.png",
+            "extension": null
+        }
+    },
+
+    {
+        "model": "drive.FileType",
+        "pk": null,
+        "fields": {
+            "name": "File",
+            "icon": "icon/file.png",
+            "extension": null
+        }
+    }
+
+    
+]

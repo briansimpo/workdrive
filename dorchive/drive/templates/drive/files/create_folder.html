@@ -1,0 +1,33 @@
+{% extends 'drive/base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block content %}
+
+    <section class="section">
+        
+        <form action="{% url 'folder_create' %}" method="post" class="form">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-header bg-light-secondary">
+                    <div class="card-title">
+                        <h4>Create folder</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col-lg-8">
+                        {{ form|crispy }}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-danger">{% trans "Upload" %}</button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </section>
+
+{% endblock %}

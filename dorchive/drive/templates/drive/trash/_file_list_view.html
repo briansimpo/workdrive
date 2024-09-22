@@ -1,0 +1,54 @@
+{%load static drive_tags %}
+
+<div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-12">   
+        {% if files %}
+        <div class="pre-scrollable">
+            <table class="table table-hover ">
+                <thead class="table-borderless ">
+                    <th>Name</th>
+                    <th>Owner</th>
+                    <th>Trashed on</th>
+                    <th>File size</th>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                        <tr>
+                            <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{file}}">
+                                <img src="{% static file.icon %}" width="30px" height="30px" />
+                                <span class="px-2">
+                                    {{ file|truncatewords:10 }}
+                                </span>
+                            </td>
+                            
+                            <td>
+                                {% file_owner file %}
+                            </td>
+
+                            <td>
+                                {{ file.modified|date:"j N Y" }}
+                            </td>
+                        
+                            <td>
+                                {{ file.bytes }}
+                            </td>
+
+                            <td>
+                                {% include "drive/trash/_inline_actions.html"  with file=file %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center m-4">
+            <img src="{% static 'icon/trash.png' %}" width="140px" height="140px" />
+            <h4 class="mt-4 ">Trash is empty</h4>
+        </div>
+        {% endif %} 
+    </div>
+</div>
+
+
+

@@ -1,0 +1,10 @@
+{% extends 'drive/base.html' %}
+{% load i18n %}
+
+{% block content_title %} {% trans 'Home' %} {% endblock %}
+
+{% block content %}
+<section class="section">
+   <h4>Welcome, {{user}}</h4>
+</section>
+{% endblock %}

@@ -1,0 +1,207 @@
+{% load i18n static jazzmin admin_urls %}
+{% load drive_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% get_jazzmin_settings request as jazzmin_settings %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!--  Prevent admin panel being crawled by search engines -->
+    <meta name="robots" content="none, noarchive">
+
+    <title>{% block title %}{{ title }} | {{ jazzmin_settings.site_title }}{% endblock %}</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+
+    <!-- Bootstrap and adminLTE -->
+    <link rel="stylesheet" href="{% static 'vendor/adminlte/css/adminlte.min.css' %}" id="adminlte-css">
+
+    <!-- Bootswatch theme -->
+    {% if jazzmin_ui.theme.name != 'default' %}
+        <link rel="stylesheet" href="{{ jazzmin_ui.theme.src }}" id="jazzmin-theme" />
+    {% endif %}
+
+    {% if jazzmin_ui.dark_mode_theme %}
+        <link rel="stylesheet" href="{{ jazzmin_ui.dark_mode_theme.src }}" id="jazzmin-dark-mode-theme" media="(prefers-color-scheme: dark)"/>
+    {% endif %}
+
+    <!-- Custom fixes for django -->
+    <link rel="stylesheet" href="{% static 'jazzmin/css/main.css' %}">
+
+    {% if jazzmin_settings.custom_css %}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static jazzmin_settings.custom_css %}">
+    {% endif %}
+
+    <!-- favicons -->
+    <link rel="shortcut icon" href="{% static jazzmin_settings.site_icon %}" type="image/png">
+    <link rel="icon" href="{% static jazzmin_settings.site_icon %}" sizes="32x32" type="image/png">
+
+    {% if jazzmin_settings.use_google_fonts_cdn %}
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    {% endif %}
+
+    <link rel="stylesheet" href="{% static 'vendor/select2/css/select2.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'jtree/themes/default/style.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'openplayer/openplayer.min.css' %}" />
+
+    {% block extrastyle %} {% endblock %}
+    {% block extrahead %} {% endblock %}
+</head>
+<body class="hold-transition {% if not jazzmin_settings.show_sidebar %} no-sidebar{% else %} sidebar-mini layout-fixed layout-navbar-fixed {% endif %} {% sidebar_status request %} {% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %} {{ jazzmin_ui.body_classes }} {% if jazzmin_ui.dark_mode_theme %}theme-dark{% endif %}" data-admin-utc-offset="{% now "Z" %}">
+
+<div class="wrapper">
+
+    {% if not is_popup %}
+        <nav class="main-header navbar navbar-expand {{ jazzmin_ui.navbar_classes }}" id="jazzy-navbar">
+            <ul class="navbar-nav">
+
+                {% if jazzmin_settings.show_sidebar %}
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="brand-link">
+                            <img src="{% static jazzmin_settings.site_logo %}" alt="{{ jazzmin_settings.site_header }} Logo" class="{{ jazzmin_settings.site_logo_classes }} brand-image" style="opacity: .8; margin: 0 0 0 5px;">
+                        </a>
+                    </li>
+                {% endif %}
+                
+            </ul>
+
+            <ul class="navbar-nav ml-auto mr-4">
+                {% if user.is_superuser or user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link btn" href="/admin" target="__blank" title="admin">
+                        <i class="fas fa-lock"></i> Admin
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link btn " data-bs-toggle="dropdown" href="#" title="{{ request.user }}">
+                        <i class="far fa-user" aria-hidden="true"></i> {{ request.user }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" id="jazzy-usermenu">
+                        <span class="dropdown-header">{% trans 'Account' %}</span>
+
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'account_change_password' %}" class="dropdown-item">
+                            <i class="fas fa-key mr-2"></i> {% trans ' Change Password' %}
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ user.get_absolute_url }}" class="dropdown-item">
+                            <i class="fas fa-cog mr-2"></i> {% trans ' Settings' %}
+                        </a>
+            
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-lock mr-2"></i> {% trans 'Log out' %}
+                        </a>
+                        
+                        <form id="logout-form" action="{% url 'account_logout' %}" method="POST" class="d-none">
+                            {% csrf_token %}
+                        </form>
+                       
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        
+        <aside class="main-sidebar elevation-1 {{ jazzmin_ui.sidebar_classes }}" id="jazzy-sidebar">
+            <a href="{% url 'home' %}" class="brand-link {{ jazzmin_ui.brand_classes }}" id="jazzy-logo">
+                <img src="{% static jazzmin_settings.site_logo %}" alt="{{ jazzmin_settings.site_header }} Logo" class="{{ jazzmin_settings.site_logo_classes }} brand-image elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">{{ jazzmin_settings.site_brand }}</span>
+            </a>
+
+            <div class="sidebar">
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column {{ jazzmin_ui.sidebar_list_classes }}" data-widget="treeview" role="menu" data-collapsible="false">
+                        {% block sidebar %}{% endblock %}
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+    {% endif %}
+
+    <div class="content-wrapper" {% if is_popup %}style="margin-left:0px; padding-top: 20px;"{% endif %}>
+        {% block page_content %}
+            {% if not is_popup %}
+            <section class="content-header border-bottom">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-md-auto d-flex flex-grow-1 align-items-center">
+                            <h1 class="h4 m-0">{% block content_title %}{% endblock %}</h1>
+                            {% block breadcrumbs %}{% endblock %}
+                        </div>
+                        {% block page_actions %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+            <section class="content-header mt-2">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        {% block messages %}
+                            {% include "layouts/_messages.html" %}
+                        {% endblock messages %}
+                        {% block content %} {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        {% endblock %}
+    </div>
+
+{% block footer %}
+    {% if not is_popup %}
+        <footer class="main-footer {{ jazzmin_ui.footer_classes }}">
+            {% autoescape off %}
+                <strong>{% trans 'Copyright' %} &copy; {% now 'Y' %} {{ jazzmin_settings.copyright }}.</strong> {% trans 'All rights reserved.' %}
+            {% endautoescape %}
+        </footer>
+    {% endif %}
+{% endblock %}
+
+</div>
+
+
+<!-- jQuery -->
+<script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'vendor/adminlte/js/adminlte.min.js' %}"></script>
+
+<script src="{% static 'vendor/select2/js/select2.min.js' %}"></script>
+
+<script src="{% static 'jazzmin/js/change_form.js' %}"></script>
+
+<script src="{% static 'jazzmin/js/main.js' %}"></script>
+
+<script src="{% static 'openplayer/openplayer.min.js' %}"></script>
+
+
+
+{% if jazzmin_settings.custom_js %}
+<script src="{% static jazzmin_settings.custom_js %}"></script>
+{% endif %}
+
+{% block extrajs %}{% endblock %}
+
+</body>
+</html>

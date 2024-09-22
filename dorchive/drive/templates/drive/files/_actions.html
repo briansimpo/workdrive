@@ -1,0 +1,73 @@
+{% load drive_tags %}
+
+<div class="col-12 col-md-auto d-flex align-items-center justify-content-end page-actions">
+
+    <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Action
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMemberMenu">
+            {% if user|can_write:file %}
+
+                {% if file.is_folder %}
+                <li>
+                    <a href="#" class="dropdown-item"  data-bs-target="#createFolderModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                        <i class="fas fa-plus"></i> Create folder
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="#" class="dropdown-item" data-bs-target="#uploadFileModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                        <i  class="fas fa-upload"></i> Upload file
+                    </a>
+                </li>
+                {% endif %}
+
+                <li>
+                    <a href="#" class="dropdown-item" data-bs-target="#renameFileModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                        <i  class="fas fa-edit"></i> Rename
+                    </a>
+                </li>
+            
+                <li> 
+                    <a href="#" class="dropdown-item" data-bs-target="#organizeFileModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                        <i  class="fas fa-folder-open"></i> Organize
+                    </a>
+                </li>
+            {% endif %}
+
+            <li>
+                <a href="#" class="dropdown-item"  data-bs-target="#shareGroupModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                    <i class="fas fa-user"></i> Share with group
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="dropdown-item" data-bs-target="#sharePeopleModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                    <i class="fas fa-user"></i> Share with people
+                </a>
+            </li>
+
+            {% if user|can_read:file or user|can_write:file %}
+            <li>
+                <a href="#" class="dropdown-item" data-bs-target="#updateFileModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                    {% if file.is_file %}
+                    <i  class="fas fa-file"></i> File information
+                    {% elif file.is_folder %}
+                    <i  class="fas fa-folder"></i> Folder information
+                    {% endif %}
+                </a>
+            </li>
+            {% endif %}
+
+            {% if user|can_delete:file %}
+            <li>
+                <a href="{{file.get_delete_url }}" class="dropdown-item">
+                    <i  class="fas fa-trash"></i> Delete
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+</div>

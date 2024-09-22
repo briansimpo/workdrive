@@ -1,0 +1,11 @@
+[
+    {
+        "model": "drive.Group",
+        "pk": null,
+        "fields": {
+            "name": "Default",
+            "is_public": true,
+            "description": "This is a default workgroup. Feel free to delete or rename it."
+        }
+    }
+]

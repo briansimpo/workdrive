@@ -1,0 +1,9 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'workdrive',
+        'USER': 'workdrive',
+        'PASSWORD': 'evedri#24',
+        'HOST': 'localhost'
+    }
+}

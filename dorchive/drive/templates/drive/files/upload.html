@@ -1,0 +1,34 @@
+{% extends "drive/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content_title %}
+    {% include "drive/files/_breadcrumbs.html" with file=file %}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+
+    <form method="POST" action="{% url 'file_upload' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="card">
+            <div class="card-header bg-light-secondary">
+                <div class="card-title">
+                    <h4>Upload files</h4>
+                </div>
+            </div>
+            <div class="card-body mt-4 ">
+                {{ form|crispy }}
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger">{% trans "Upload" %}</button>
+                <a href="{{file.get_absolute_url}}" class="btn btn-danger ">Cancel</a>
+            </div>
+        </div>
+        
+        <br/><br/>
+        
+    </form>
+</section>
+{% endblock %}

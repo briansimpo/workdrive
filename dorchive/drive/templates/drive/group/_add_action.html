@@ -1,0 +1,9 @@
+{% load drive_tags %}
+
+{% if user|is_group_admin:group %}
+<div class="col-12 col-md-auto d-flex align-items-center justify-content-end page-actions">
+    <a class="btn btn-primary"  data-bs-target="#addMemberModal" data-bs-toggle="modal" data-bs-backdrop="false">
+        <i class="fa fa-user-plus"></i> Add Member
+    </a>
+</div>
+{% endif %}

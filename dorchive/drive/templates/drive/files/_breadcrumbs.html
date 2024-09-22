@@ -1,0 +1,30 @@
+
+<ol class="breadcrumb">
+    
+    <li class="breadcrumb-item">
+        {% if file.group %}
+            <a href="{{ file.group.get_absolute_url }}">
+                {{file.group}}
+            </a>
+        {% else %}
+            <a href="{% url 'mydrive' %}">
+                My Drive
+            </a>
+        {% endif %}
+    </li>
+
+    {% if file.has_ancestors %}
+        {% for breadcrumb in file.get_ancestors %}
+            <li class="breadcrumb-item">
+                <a href="{{ breadcrumb.get_absolute_url }}">
+                    <span class="d-inline ">{{ breadcrumb.name }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    {% endif %}
+    <li class="breadcrumb-item active">
+        <a href="{{ file.get_absolute_url }}">
+            <span class="d-inline ">{{ file.name }}</span>
+        </a>
+    </li>
+</ol>

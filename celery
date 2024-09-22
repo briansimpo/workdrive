@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 -m celery -A config.celery_app worker -l info
