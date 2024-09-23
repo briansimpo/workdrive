@@ -78,7 +78,7 @@
                 
             </ul>
 
-            <ul class="navbar-nav ml-auto mr-4">
+            <ul class="navbar-nav ml-auto">
                 {% if user.is_superuser or user.is_staff %}
                 <li class="nav-item">
                     <a class="nav-link btn" href="/admin" target="__blank" title="admin">
@@ -88,10 +88,10 @@
                 {% endif %}
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link btn " data-bs-toggle="dropdown" href="#" title="{{ request.user }}">
-                        <i class="far fa-user" aria-hidden="true"></i> {{ request.user }}
+                    <a class="nav-link btn " data-bs-toggle="dropdown" href="#" title="{{ user }}">
+                        <i class="fas fa-user" aria-hidden="true"></i> {{ user }}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" id="jazzy-usermenu">
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" id="jazzy-usermenu" style="left:inherit; right:0px;">
                         <span class="dropdown-header">{% trans 'Account' %}</span>
 
                         <div class="dropdown-divider"></div>
