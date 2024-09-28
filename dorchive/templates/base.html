@@ -81,7 +81,7 @@
             <ul class="navbar-nav ml-auto">
                 {% if user.is_superuser or user.is_staff %}
                 <li class="nav-item">
-                    <a class="nav-link btn" href="/admin" target="__blank" title="admin">
+                    <a class="nav-link btn" href="{% url 'admin:index' %}" target="__blank" title="admin">
                         <i class="fas fa-lock"></i> Admin
                     </a>
                 </li>
