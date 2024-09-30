@@ -272,10 +272,10 @@ tags
 dump.rdb
 
 ### Project template
-dorchive/media/
+workdrive/media/
 
 .pytest_cache/
 .ipython/
-.env
+#.env
 .envs/*
 !.envs/.local/
